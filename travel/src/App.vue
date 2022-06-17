@@ -18,6 +18,10 @@ export default {
   max-width: 600px;
   background-color: thistle;
 }
+.nav #logo {
+  text-decoration-style: dotted;
+  font-size: 1.25rem;
+}
 .container {
   max-width: 600px;
   background-color: bisque;

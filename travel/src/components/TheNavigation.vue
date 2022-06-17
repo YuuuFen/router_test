@@ -1,9 +1,23 @@
 <!-- TheNavigation.vue -->
 <template>
   <div class="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/brazil">Brazil</router-link> |
-    <router-link to="/hawaii">Hawaii</router-link>
+    <router-link id="logo" to="/">Travel Website</router-link>
+    <router-link
+      v-for="destination in destinations"
+      :key="destination.id"
+      :to="{ name: 'destination.show', params: { id: destination.id } }"
+    >
+      {{ destination.name }}
+    </router-link>
   </div>
 </template>
+<script>
+import sourceData from "@/data.json";
+export default {
+  data() {
+    return {
+      destinations: sourceData.destinations,
+    };
+  },
+};
+</script>
