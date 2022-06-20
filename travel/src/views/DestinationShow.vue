@@ -1,6 +1,6 @@
 <!-- DestinationShow.vue -->
 <template>
-  <div>
+  <div v-if="destination">
     <h2>No. {{ $route.params.id }}</h2>
     <h1>{{ destination.name }}</h1>
     <div>
@@ -11,20 +11,29 @@
 </template>
 
 <script>
-// 8
 import sourceData from "@/data.json";
 export default {
+  data() {
+    return {
+      destination: null,
+    };
+  },
   computed: {
-    // 5, 6, 7
     destinationId() {
       return parseInt(this.$route.params.id);
     },
-    // 9
-    destination() {
-      return sourceData.destinations.find(
-        (destination) => destination.id === this.destinationId
+  },
+  methods: {
+    async initData() {
+      const response = await fetch(
+        `https://travel-dummy-api.netlify.app/${this.$route.params.slug}`
       );
+      this.destination = await response.json();
     },
+  },
+  async created() {
+    this.initData();
+    // this.$watch(() => this.$route.params, this.initData);
   },
 };
 </script>
